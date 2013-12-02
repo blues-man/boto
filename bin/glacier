@@ -74,10 +74,12 @@ glacier <command> [args]
     Uploading files:
 
         glacier upload <vault name> <files>
+        glacier upload_single <vault name> <file> <description>
 
         Examples : 
             glacier upload pics *.jpg
             glacier upload pics a.jpg b.jpg
+            glacier upload_single pics a.jpg "screenshot"
 """
     sys.exit()
 
