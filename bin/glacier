@@ -109,6 +109,14 @@ def upload_files(vault_name, filenames, region, access_key=None, secret_key=None
         if isfile(filename):
             print 'Uploading %s to %s' % (filename, vault_name)
             glacier_vault.upload_archive(filename)
+            
+def upload_file(vault_name, filename, description region, access_key=None, secret_key=None):
+    layer2 = connect(region, access_key = access_key, secret_key = secret_key)
+    layer2.create_vault(vault_name)
+    glacier_vault = layer2.get_vault(vault_name)
+    if isfile(filename):
+        print 'Uploading %s to %s' % (filename, vault_name)
+        glacier_vault.upload_archive(filename, description)
 
 
 def main():
@@ -148,6 +156,10 @@ def main():
         if len(args) < 2:
             usage()
         upload_files(args[0], args[1:], region, access_key, secret_key)
+    elif command == 'upload_single':
+        if len(args) < 2:
+            usage()
+        upload_file(args[0], args[1], args[2], region, access_key, secret_key)
 
 
 if __name__ == '__main__':
